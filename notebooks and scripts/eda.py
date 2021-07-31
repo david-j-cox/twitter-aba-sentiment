@@ -113,9 +113,9 @@ for i in ['pos', 'neg', 'neu', 'compound']:
 
 #%%
 for i in ['pos', 'neg', 'neu', 'compound']:
-    f, ax = plt.subplots(figsize=(30, 15))
+    f, ax = plt.subplots(figsize=(50, 15))
     sns.boxplot(x='focus', y=i, data=data, color='w')
-    sns.stripplot(x='focus', y=i, data=data, color='k', size=7, alpha=0.15)
+    sns.swarmplot(x='focus', y=i, data=data, color='k', size=3, alpha=0.15)
     plt.ylabel("Sentiment Score", fontsize=30, labelpad=(20))
     plt.xticks(fontsize=20)
     plt.xlabel("Hashtag", fontsize=30, labelpad=(20))
@@ -125,5 +125,5 @@ for i in ['pos', 'neg', 'neu', 'compound']:
     right_side.set_visible(False)
     top = ax.spines["top"]
     top.set_visible(False)
-    plt.savefig(f'box_swarm_sent_{i}.png')
+    # plt.savefig(f'box_swarm_sent_{i}.png')
     plt.show()
