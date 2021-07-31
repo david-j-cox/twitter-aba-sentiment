@@ -10,18 +10,22 @@ Project Organization
     ├── Makefile           <- Makefile with commands like `make data` or `make train`
     ├── README.md          <- The top-level README for developers using this project.
     ├── data
-    │   ├── external       <- Data from third party sources.
-    │   ├── interim        <- Intermediate data that has been transformed.
-    │   ├── processed      <- The final, canonical data sets for modeling.
-    │   └── raw            <- The original, immutable data dump.
+    │   ├── 01_raw           <- Data from third party sources.
+    │   ├── 02_intermediate  <- Dataframes in transition from raw to the primary analytic dataframe.
+    │   ├── 03_primary       <- Primary analytic dataframe after cleaning
+    │   ├── 04_feature       <- Dataframes in transition during feature engineering.
+    │   ├── 05_model_input   <- Trimmed dataframes following feature reduction for specific modeling purposes. 
+    │   ├── 06_models        <- Models resulting from parameter estimation and hyperparameter tuning. 
+    │   ├── 07_model_output  <- Model outputs/predictions. 
+    │   ├── 08_reporting     <- Dataframes, models, and any products for use in reporting out. 
     │
     ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
     │
     ├── models             <- Trained and serialized models, model predictions, or model summaries
     │
-    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                         the creator's initials, and a short `-` delimited description, e.g.
-    │                         `1.0-jqp-initial-data-exploration`.
+    ├── notebooks and scripts  <- Jupyter notebooks or .py scripts. Naming convention is a number (for ordering),
+    │                             the creator's initials, and a short `-` delimited description, e.g.
+    │                             `1.0-jqp-initial-data-exploration`.
     │
     ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
     │
