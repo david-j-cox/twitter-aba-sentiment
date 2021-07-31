@@ -6,14 +6,9 @@ FUNCTION: Script to run sentiment analysis on text. This script also handles
           descriptions using emot and then running sentiment analysis using 
           those descriptions embedded back in the text at the right spot. 
 
-TESTING:
-    Number conducted = 0
-    Number passed = 0
-    Pass percentageon last 10 = 0
+LAST UPDATED: 07/31/2021
 
-LAST UPDATED: DD/MM/YYYY
-
-OWNER: Your Name
+OWNER: David J. Cox, PhD, MSB, BCBA-D
 '''
 
 # Packages and modules
