@@ -70,4 +70,26 @@ first_report = sv.analyze(data)
 #display the report
 first_report.show_html('Advertising.html')
 
-#%% 
+#%% Relative count of tweets by hashtag
+data = data[data['focus']!='nan']
+tweets_by_hash = pd.DataFrame(data['focus'].value_counts())
+tweets_by_hash = tweets_by_hash.reset_index(drop=False)
+tweets_by_hash.columns = ['hashtag', 'count']
+new_row = ['all_bx', (tweets_by_hash['count'].sum() - 666957)]
+tweets_by_hash.loc[5] = new_row
+tweets_by_hash = tweets_by_hash.sort_values(by='count', ascending=False)
+tweets_by_hash
+
+#%% Plot it
+f, ax = plt.subplots(figsize=(20, 15))
+plt.bar(x=tweets_by_hash['hashtag'], height=tweets_by_hash['count'], color='k')
+plt.ylabel("Count", fontsize=30, labelpad=(20))
+plt.xticks(fontsize=20, rot=45)
+plt.xlabel("Hashtag", fontsize=30, labelpad=(20))
+plt.yticks(fontsize=20)
+right_side = ax.spines["left"]
+right_side.set_visible(False)
+top = ax.spines["top"]
+top.set_visible(False)
+# plt.savefig(f'{save_name}.png')
+plt.show()
