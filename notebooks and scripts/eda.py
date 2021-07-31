@@ -80,16 +80,50 @@ tweets_by_hash.loc[5] = new_row
 tweets_by_hash = tweets_by_hash.sort_values(by='count', ascending=False)
 tweets_by_hash
 
-#%% Plot it
+#%% Plot counts
 f, ax = plt.subplots(figsize=(20, 15))
 plt.bar(x=tweets_by_hash['hashtag'], height=tweets_by_hash['count'], color='k')
 plt.ylabel("Count", fontsize=30, labelpad=(20))
-plt.xticks(fontsize=20, rot=45)
+plt.xticks(fontsize=20, rotation=45)
 plt.xlabel("Hashtag", fontsize=30, labelpad=(20))
 plt.yticks(fontsize=20)
+plt.yscale("log")
 right_side = ax.spines["left"]
 right_side.set_visible(False)
 top = ax.spines["top"]
 top.set_visible(False)
-# plt.savefig(f'{save_name}.png')
+plt.savefig('count_log_y.png')
 plt.show()
+
+#%% Plot distributions of sentiment for each hashtag
+for i in ['pos', 'neg', 'neu', 'compound']:
+    f, ax = plt.subplots(figsize=(20, 15))
+    sns.violinplot(x=i, y='focus', data=data)
+    plt.ylabel("Hashtag", fontsize=30, labelpad=(20))
+    plt.xticks(fontsize=20)
+    plt.xlabel("Sentiment Score", fontsize=30, labelpad=(20))
+    plt.yticks(fontsize=20)
+    plt.title(label=i, fontsize=32, pad=20)
+    right_side = ax.spines["left"]
+    right_side.set_visible(False)
+    top = ax.spines["top"]
+    top.set_visible(False)
+    plt.savefig(f'violin_sent_{i}.png')
+    plt.show()
+
+#%%
+for i in ['pos', 'neg', 'neu', 'compound']:
+    f, ax = plt.subplots(figsize=(30, 15))
+    sns.boxplot(x='focus', y=i, data=data, color='w')
+    sns.stripplot(x='focus', y=i, data=data, color='k', size=7, alpha=0.15)
+    plt.ylabel("Count", fontsize=30, labelpad=(20))
+    plt.xticks(fontsize=20)
+    plt.xlabel("Hashtag", fontsize=30, labelpad=(20))
+    plt.yticks(fontsize=20)
+    plt.title(label=i, fontsize=32, pad=20)
+    right_side = ax.spines["left"]
+    right_side.set_visible(False)
+    top = ax.spines["top"]
+    top.set_visible(False)
+    plt.savefig(f'box_swarm_sent_{i}.png')
+    plt.show()
