@@ -16,7 +16,7 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-!pip install sweetviz # In case the individual does not have it installed
+# !pip install sweetviz # In case the individual does not have it installed
 import sweetviz as sv
 
 pd.set_option("display.max_columns", None)
@@ -113,9 +113,9 @@ for i in ['pos', 'neg', 'neu', 'compound']:
 
 #%%
 for i in ['pos', 'neg', 'neu', 'compound']:
-    f, ax = plt.subplots(figsize=(50, 15))
+    f, ax = plt.subplots(figsize=(30, 15))
     sns.boxplot(x='focus', y=i, data=data, color='w')
-    sns.swarmplot(x='focus', y=i, data=data, color='k', size=3, alpha=0.15)
+    sns.stripplot(x='focus', y=i, data=data, color='k', size=3, alpha=0.15)
     plt.ylabel("Sentiment Score", fontsize=30, labelpad=(20))
     plt.xticks(fontsize=20)
     plt.xlabel("Hashtag", fontsize=30, labelpad=(20))
