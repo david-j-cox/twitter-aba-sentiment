@@ -62,4 +62,4 @@ Project Organization
 
 
 # Visualization of current repository
-![Visualization of the codebase](./diagram.svg
+![Visualization of the codebase](./diagram.svg)
