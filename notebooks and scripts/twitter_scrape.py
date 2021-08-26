@@ -1,16 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 '''
-FUNCTION: At the top, include a short description of the function of the script.
-		  That is, in one sentence answer the question, 'What does this script do?'.
-		  Also provide quick note on any bugs or issues as well as last time that tests were conducted.
+FUNCTION: The purpose of this script is to scrape Twitter for Tweets containing
+          text from the lists below pertaining to
 
-TESTING:
-    Number conducted = 0
-    Number passed = 0
-    Pass percentageon last 10 = 0
-
-LAST UPDATED: DD/MM/YYYY
+LAST UPDATED: 08/26/2021
 
 OWNER: Your Name
 '''
@@ -24,18 +18,48 @@ import pandas
 # Personal preference
 pd.set_option('display.max_columns', None)
 
+#%% Lists
+# Terms related ot online learning
+online_learning = ['digital learning', 'remote delivery', 'Teaching online',
+                   'Online class','online course*','Online learning',
+                   'blended learning', 'Synchronous', 'Asynchronous',
+                   'Polysynchronous', 'Hybrid', 'Zoom','Microsoft teams',
+                   'Moodle', 'Canvas', 'Blackboard', 'WebX',
+                   'Google classroom']
 
-#%% Scrape Twitter for #behaviortwitter
-!snscrape --jsonl --progress --max-results 100000 --since 2018-01-01 twitter-search "#behaviortwitter until:2021-07-25" > text-query-tweets.json
+# Terms related to Covid-19 (Koh & Liew, 2021)
+covd_list = ['Covid', 'Covid-19', 'COVID19', 'Coronavirus', 'Corona virus']
 
-# Read in the jscon file
-bx_tweets = pd.read_json('text-query-tweets.json', lines=True)
+# Terms related to higher education
+higher_ed = ['College', 'University', 'Professor', 'Teacher', 'Higher ed',
+             'Higher education']
 
-# Creating a dataframe from the tweets list above 
-bx_tweets = pd.DataFrame(bx_tweets)
 
-# Add col for hashtag focus
-bx_tweets['focus'] = 'behaviortwitter'
+#%% Scrape Twitter for seed dataframe
+!snscrape --jsonl --progress --max-results 10000000 --since 2020-03-01 twitter-search "#digitallearning until:2020-05-01" > text-query-tweets.json
+
+# Read in the json file
+oneline_tweets = pd.read_json('text-query-tweets.json', lines=True)
+
+# Creating a dataframe from the tweets list above
+oneline_tweets = pd.DataFrame(oneline_tweets)
+
+#%%
+
+for i in online_learning[1:2]:
+    !snscrape --jsonl --progress --max-results 10000000 --since 2020-03-01 twitter-search f"#{i} until:2020-05-01" > text-query-tweets.json
+
+    # Read in the json file
+    add_tweets = pd.read_json('text-query-tweets.json', lines=True)
+
+    # Creating a dataframe from the tweets list above
+    add_tweets = pd.DataFrame(add_tweets)
+
+    # Add new data to our growing list
+    online_tweets = pd.concat(online_tweets, add_tweets)
+
+#%% Add col for hashtag focus
+oneline_tweets['time'] = 'pre-COVID'
 
 #%% Scrape Twitter for #ABATherapy
 !snscrape --jsonl --progress --max-results 100000 --since 2018-01-01 twitter-search "#ABATherapy until:2021-07-25" > text-query-tweets.json
@@ -43,7 +67,7 @@ bx_tweets['focus'] = 'behaviortwitter'
 # Read in the jscon file
 abtx_tweets = pd.read_json('text-query-tweets.json', lines=True)
 
-# Creating a dataframe from the tweets list above 
+# Creating a dataframe from the tweets list above
 abtx_tweets = pd.DataFrame(abtx_tweets)
 
 # Add col for hashtag focus
@@ -55,7 +79,7 @@ abtx_tweets['focus'] = 'abatherapy'
 # Read in the jscon file
 aba_tweets = pd.read_json('text-query-tweets.json', lines=True)
 
-# Creating a dataframe from the tweets list above 
+# Creating a dataframe from the tweets list above
 aba_tweets = pd.DataFrame(aba_tweets)
 
 # Add col for hashtag focus
@@ -67,7 +91,7 @@ aba_tweets['focus'] = 'aba'
 # Read in the jscon file
 appliedbehavioranalysis_tweets = pd.read_json('text-query-tweets.json', lines=True)
 
-# Creating a dataframe from the tweets list above 
+# Creating a dataframe from the tweets list above
 appliedbehavioranalysis_tweets = pd.DataFrame(appliedbehavioranalysis_tweets)
 
 # Add col for hashtag focus
